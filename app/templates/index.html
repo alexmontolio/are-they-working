@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+{% block content %}
+	<section class="container">
+		<h1 class="main-title">Are They Working</h1>
+		<!-- <img src="{{ url_for('static', filename='title.png') }}"> -->
+	</section>
+	<div class="button-container">
+		<form method="post" class="button-type">
+		{% if elevator.left and elevator.right %}
+			<input type="submit" name="submit" class="buttons" value="Report Left Elevator Broken">
+			<input type="submit" name="submit" class="buttons" value="Report Right Elevator Broken">
+		{% elif elevator.left and not elevator.right %}
+			<input type="submit" name="submit" class="buttons" value="Report Left Elevator Broken">
+			<input type="submit" name="submit" class="buttons" value="Report Right Elevator Fixed">
+		{% elif not elevator.left and elevator.right %}
+			<input type="submit" name="submit" class="buttons" value="Report Left Elevator Fixed">
+			<input type="submit" name="submit" class="buttons" value="Report Right Elevator Broken">
+		{% else %}
+			<input type="submit" name="submit" class="buttons" value="Report Left Elevator Fixed">
+			<input type="submit" name="submit" class="buttons" value="Report Right Elevator Fixed">
+		{% endif %}
+		</form>
+	</div>
+{% endblock %}

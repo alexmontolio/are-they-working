@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="A web app to notify residence of functioning elevators.">
+		{% if title %}
+		<title>{{ title }}</title>
+		{% else %}
+		<title>Are They Working!?</title>
+		{% endif %}
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+	</head>
+	{% if elevator.left and elevator.right %}
+	<body style="background-color: #00E600;">
+	{% elif elevator.left and not elevator.right %}
+	<body style="height: 100%;
+				 background: linear-gradient(90deg, #00E600 50%, #FF1A1A 50%);">
+	{% elif not elevator.left and elevator.right %}
+	<body style="height: 100%;
+				 background: linear-gradient(90deg, #FF1A1A 50%, #00E600 50%);">
+	{% else %}
+	<body style="background-color: #FF1A1A;">
+	{% endif %}
+		<!-- Navigation bar -->
+		<nav class="navbar">			
+			<div class="menu">
+				<ul class="topnav">
+					<!-- Basic navigation link -->
+					<li><a href="{{ url_for('index') }}">Home</a></li>
+					<li class="menu-button">
+						<a href="javascript:void(0);" onclick="clickMenu()">&#9776;</a>
+					</li>
+					<li><a href="{{ url_for('about') }}">About</a></li>
+					<li><a href="{{ url_for('outages') }}">Known Outages</a></li>
+					<li><a href="#">Contact Us</a></li>
+				<ul>
+			</div>
+			<script>
+				function clickMenu() {
+					document.getElementsByClassName("topnav")[0].classList.toggle("responsive");
+				}
+			</script>
+		</nav>
+		{% block content %}
+		{% endblock %}
+	</body>
+</html>
